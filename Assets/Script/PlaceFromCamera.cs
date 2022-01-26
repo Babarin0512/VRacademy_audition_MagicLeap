@@ -165,11 +165,11 @@ namespace MagicLeap
         }
 
         /// <summary>
-        /// Reset position and rotation to match current camera values.
+        /// Reset position and rotation to match current camera values.(現在のカメラ値に一致するように位置と回転をリセットします。)
         /// </summary>
         private void UpdateTransform(Camera camera)
         {
-            // Move the object in front of the camera with specified offsets.
+            // Move the object in front of the camera with specified offsets.(指定したオフセットでオブジェクトをカメラの前に移動します)
             Vector3 offsetVector = (camera.transform.up * _heightOffset) + (camera.transform.right * _lateralOffset);
             Vector3 forwardVec = (_lockToXZPlane) ? new Vector3(camera.transform.forward.x, 0, camera.transform.forward.z).normalized : camera.transform.forward;
             Vector3 targetPosition = (_useLocalSpace ? camera.transform.localPosition : camera.transform.position) + offsetVector + (forwardVec * _distance);
@@ -188,18 +188,18 @@ namespace MagicLeap
                 _lastCameraPosition = _useLocalSpace ? camera.transform.localPosition : camera.transform.position;
             }
 
-            if (_useLocalSpace)
+            /*if (_useLocalSpace)
             {
                 transform.localPosition = _placeOnAwake ? targetPosition : Vector3.SmoothDamp(transform.localPosition, _movePosition, ref _positionVelocity, _positionSmoothTime);
             }
             else
             {
                 transform.position = _placeOnAwake ? targetPosition : Vector3.SmoothDamp(transform.position, _movePosition, ref _positionVelocity, _positionSmoothTime);
-            }
+            }*/
 
             Quaternion targetRotation = Quaternion.identity;
 
-            // Rotate the object to face the camera.
+            // Rotate the object to face the camera.(オブジェクトを回転させてカメラに向けます。)
             if (_lookDirection == LookDirection.LookAwayFromCamera)
             {
                 targetRotation = Quaternion.LookRotation((_useLocalSpace ? transform.localPosition : transform.position) - (_useLocalSpace ? camera.transform.localPosition : camera.transform.position), camera.transform.up);

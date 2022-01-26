@@ -12,17 +12,28 @@ public class HandDemoManager : MonoBehaviour
     [SerializeField] private GameObject _uiObject;
     [SerializeField] private GameObject _handCollision;
 
+    private GameObject _mainCamera;
+
     //手のジェスチャーに応じた
     //認識率
     private float _keyPoseConfidenceValue = 0.6f;
 
     private MLResult result;
+
+    private void Awake()
+    {
+         //MainCameraのTransformを取得する
+        _mainCamera = GameObject.Find("MainCamera");
+    }
         
     private void Start()
     {
 
+       
+
         //HandTracking Start
         result = MLHandTracking.Start();
+        //Debug.Log(_mainCamera.name);
 
         //ハンドトラッキング機能が正しく立ち上がってるかチェック
         if (!result.IsOk)
@@ -49,6 +60,7 @@ public class HandDemoManager : MonoBehaviour
             if (type == MLHandTracking.HandType.Left && pose == _activeUIKeyPose)
             {
                 _uiObject.SetActive(true);
+                _uiObject.gameObject.transform.position = MLHandTracking.Left.Index.Tip.Position;
             }
                 
             if (type == MLHandTracking.HandType.Left && pose == _inactiveUIKeyPose)
@@ -78,6 +90,14 @@ public class HandDemoManager : MonoBehaviour
             //任意の手の形状でなければ非アクティブ → すなわち、当たり判定消去
             _handCollision.SetActive(false);
         }
+
+        //_uiObjectをMain Cameraに対して正面を向くようにする
+        /*if(_uiObject != null)
+        {
+            _uiObject.transform.LookAt(_mainCamera.transform);
+            
+
+        }*/
     }
 }
    
