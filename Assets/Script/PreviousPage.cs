@@ -19,5 +19,6 @@ public class PreviousPage : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         transform.root.gameObject.GetComponent<PushCounter>().PreviousPage();
+        this.gameObject.GetComponent<Renderer>().material.color = Color.blue;
     }
 }

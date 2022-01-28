@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR.MagicLeap;
 using UnityEngine.XR.Management;
 using static UnityEngine.XR.MagicLeap.MLBarcodeScanner;
@@ -49,6 +50,7 @@ public class MLQRCodeSample : MonoBehaviour
            MLInput.Controller targetController = MLInput.GetController(controllerid);
 
            targetController.StartFeedbackPatternVibe(MLInput.Controller.FeedbackPatternVibe.ForceDown, MLInput.Controller.FeedbackIntensity.Medium);
+
        }
 #endif
     }
@@ -122,7 +124,10 @@ public class MLQRCodeSample : MonoBehaviour
     private void OnMLBarcodeScannerResultsFound(BarcodeData data)
     {
            Debug.Log(data.StringData);
-
+           
+           //シーンを変える
+           SceneManager.LoadScene(data.StringData);
+         
        if (data.Type != MLBarcodeScanner.BarcodeType.None)
        {
                ExtractBarcodeScannerData(data);
@@ -149,4 +154,6 @@ public class MLQRCodeSample : MonoBehaviour
        }
     }
     #endregion
+
+   
 }

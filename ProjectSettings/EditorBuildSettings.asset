@@ -4,7 +4,13 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scene/CB400SF.unity
+    guid: ab9b9da77b2b1411db40229aaf0b412c
   m_configObjects:
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 7d97c42d804174425ba25380a86c6847, type: 2}
     com.unity.xr.magicleap.magic_leap_settings: {fileID: 11400000, guid: 85eb5c77473ef46d28d4b565a24fcfa1, type: 2}

@@ -17,12 +17,16 @@ public class PushCounter : MonoBehaviour
     private GameObject imageObject;//imageをGameObjectとして代入する変数
 
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         counts = 0;
         _text = GameObject.Find("PushCounter").GetComponent<Text>();
         _text.text = counts.ToString();
+    }
+
+    void Start()
+    {
+        
     
 
         //image[]にResouseフォルダ内の画像を格納する
@@ -46,8 +50,8 @@ public class PushCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         _text.text = counts.ToString();
-         //_text.text = _mainCamera.name;
+         _text.text = counts.ToString() + "/" + image.Length.ToString() + "ページ";
+         
 
          if(counts > 2)
          {
@@ -101,15 +105,7 @@ public class PushCounter : MonoBehaviour
 
 
 
-     /*  void OnTriggerExit(Collider other)//別々のオブジェクトにアタッチする
-    {
-        counts += 1;
-        
-        //image[]から画像を取得してPanel上に生成する
-        _panel.sprite = image[counts];
-
-       
-    }*/
+    
 
     
 }

@@ -57,16 +57,39 @@ public class HandDemoManager : MonoBehaviour
         //右手のポーズ変化のコールバック　UIを表示
         ｋeyPoseManager.OnKeyPoseBegin += (pose, type) =>
         {
-            if (type == MLHandTracking.HandType.Left && pose == _activeUIKeyPose)
+            if(MLEyes.LeftEye.IsBlinking || MLEyes.RightEye.IsBlinking)
             {
-                _uiObject.SetActive(true);
-                _uiObject.gameObject.transform.position = MLHandTracking.Left.Index.Tip.Position;
+                if (type == MLHandTracking.HandType.Left && pose == _activeUIKeyPose)
+                {
+                    _uiObject.SetActive(true);
+                    _uiObject.gameObject.transform.position = MLHandTracking.Left.Index.Tip.Position;
+                }
             }
+            /*if (type == MLHandTracking.HandType.Left && pose == _activeUIKeyPose)
+            {
+                if(MLEyes.LeftEye.IsBlinking || MLEyes.RightEye.IsBlinking)
+                {
+                    
+                } 
+            }*/
+
+            if(MLEyes.LeftEye.IsBlinking || MLEyes.RightEye.IsBlinking)
+            {
+                if (type == MLHandTracking.HandType.Left && pose == _inactiveUIKeyPose)
+                {
+                    _uiObject.SetActive(false);
+                }
+            }
+           
                 
-            if (type == MLHandTracking.HandType.Left && pose == _inactiveUIKeyPose)
+            /*if (type == MLHandTracking.HandType.Left && pose == _inactiveUIKeyPose)
             {
-                _uiObject.SetActive(false);
-            }
+                if(MLEyes.LeftEye.IsBlinking || MLEyes.RightEye.IsBlinking)
+                {
+                    _uiObject.SetActive(false);
+                }
+                
+            }*/
         };
     }
 
@@ -91,13 +114,9 @@ public class HandDemoManager : MonoBehaviour
             _handCollision.SetActive(false);
         }
 
-        //_uiObjectをMain Cameraに対して正面を向くようにする
-        /*if(_uiObject != null)
-        {
-            _uiObject.transform.LookAt(_mainCamera.transform);
-            
-
-        }*/
     }
+
+    //右目を閉じている場合にUIオブジェクトを表示できるようにする
+
 }
    
