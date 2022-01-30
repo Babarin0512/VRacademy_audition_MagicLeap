@@ -16,6 +16,8 @@ public class PushCounter : MonoBehaviour
     private Image _panel;
     private GameObject imageObject;//imageをGameObjectとして代入する変数
 
+    private int imageLength;
+
 
     void Awake()
     {
@@ -39,8 +41,8 @@ public class PushCounter : MonoBehaviour
 
         //MainCameraのRotationの値を取得する
         _mainCamera = GameObject.Find("MainCamera");
-        //Debug.Log(_mainCamera.name);
-        //Quaternion quaternion = _mainCamera.transform.rotation;
+        
+        imageLength = 3;
         
         
         
@@ -50,16 +52,20 @@ public class PushCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         _text.text = counts.ToString() + "/" + image.Length.ToString() + "ページ";
+         //_text.text = counts.ToString() + "/" + image.Length.ToString() + "ページ";
+         _text.text = counts.ToString() + "/" + imageLength.ToString();
+         
          
 
-         if(counts > 2)
+         if(counts > image.Length-1)
          {
              counts = 0;
+             _panel.sprite = image[0];
          }
-         else if(counts < 0)
+         else if(counts <= 0)
          {
              counts = 0;
+             _panel.sprite = image[0];
          }
 
          float x = quaternion.eulerAngles.x;

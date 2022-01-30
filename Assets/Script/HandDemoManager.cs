@@ -33,7 +33,6 @@ public class HandDemoManager : MonoBehaviour
 
         //HandTracking Start
         result = MLHandTracking.Start();
-        //Debug.Log(_mainCamera.name);
 
         //ハンドトラッキング機能が正しく立ち上がってるかチェック
         if (!result.IsOk)
@@ -93,6 +92,11 @@ public class HandDemoManager : MonoBehaviour
         };
     }
 
+    private void FixUpdate()
+    {
+
+    }
+
     private void Update()
     {
         //ハンドトラッキング機能が正しく立ち上がってるかチェック
@@ -116,7 +120,7 @@ public class HandDemoManager : MonoBehaviour
 
     }
 
-    //右目を閉じている場合にUIオブジェクトを表示できるようにする
+   
 
 }
    

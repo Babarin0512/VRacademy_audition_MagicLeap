@@ -18,9 +18,15 @@ public class FollowingPage : MonoBehaviour
         
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        this.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+
+    }
+
     private void OnTriggerExit(Collider other)
     {
         transform.root.gameObject.GetComponent<PushCounter>().FollowingPage();
-        this.gameObject.GetComponent<Renderer>().material.color = Color.blue;
+        this.gameObject.GetComponent<Renderer>().material.color = Color.white;
     }
 }
