@@ -188,14 +188,14 @@ namespace MagicLeap
                 _lastCameraPosition = _useLocalSpace ? camera.transform.localPosition : camera.transform.position;
             }
 
-            /*if (_useLocalSpace)
+            if (_useLocalSpace)
             {
                 transform.localPosition = _placeOnAwake ? targetPosition : Vector3.SmoothDamp(transform.localPosition, _movePosition, ref _positionVelocity, _positionSmoothTime);
             }
             else
             {
                 transform.position = _placeOnAwake ? targetPosition : Vector3.SmoothDamp(transform.position, _movePosition, ref _positionVelocity, _positionSmoothTime);
-            }*/
+            }
 
             Quaternion targetRotation = Quaternion.identity;
 

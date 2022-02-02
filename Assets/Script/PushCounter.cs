@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PushCounter : MonoBehaviour
 {
@@ -42,7 +43,7 @@ public class PushCounter : MonoBehaviour
         //MainCameraのRotationの値を取得する
         _mainCamera = GameObject.Find("MainCamera");
         
-        imageLength = 3;
+        imageLength = image.Length - 1;
         
         
         
@@ -107,6 +108,11 @@ public class PushCounter : MonoBehaviour
         {
             return;
         }
+    }
+
+    public void MoveScene()
+    {
+        //SceneManager.LoadScene();
     }
 
 

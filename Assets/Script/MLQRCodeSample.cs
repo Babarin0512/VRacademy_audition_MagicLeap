@@ -26,36 +26,59 @@ public class MLQRCodeSample : MonoBehaviour
     // Control入力がサブスクライブされているかどうかを確認するためのフラグ
     private bool _didInit;
 
+    // Panel(CarSelect)に関連するObjectを取得する
+    private GameObject panelCarSelect;
+    private Text panelCarSelect_text;
+    private Image panelCarSelect_image;
+
+    // ScanButton.csのScanButton_flag変数を取得する
+    private ScanButton scaButton;
+    private bool scanButton_flag;
+
     void Start()
     {
         MLBarcodeScanner.BarcodeType type = MLBarcodeScanner.BarcodeType.All;
 
         _barcodeSettings = MLBarcodeScanner.Settings.Create(false, type, QRCodeSize);
         SetSettingsAsync(_barcodeSettings);
+
+        panelCarSelect = GameObject.FindGameObjectWithTag("panel(CarSelect)");
+        panelCarSelect_text = panelCarSelect.transform.GetChild(0).gameObject.GetComponent<Text>();
+        panelCarSelect_image = panelCarSelect.transform.GetChild(1).gameObject.GetComponent<Image>();
+
+        scanButton_flag = GameObject.FindGameObjectWithTag("scanButton").GetComponent<ScanButton>().ScanButton_flag;
     }
 
-    private void MLInputOnOnTriggerDown(byte controllerid, float triggervalue)
+    //private void MLInputOnOnTriggerDown(byte controllerid, float triggervalue)//
+    public void MLInputOnButtonTap()
     {
 #if PLATFORM_LUMIN
-       // Controlのトリガーが押した状態で且つ、QRコードのスキャンを実施していない場合
-       if (triggervalue > .5f && !_isScanning)
+       /* Controlのトリガーが押した状態で且つ、QRコードのスキャンを実施していない場合
+       if (triggervalue > .5f && !_isScanning)*/
+       if(scanButton_flag && !_isScanning)//ScanButtonが押されて且つ、QRコードのスキャンを実施していない場合
        {
            // QRコードのスキャンを開始
            StartScanningAsync();
 
            // QRコードのスキャン中を判定するフラグを立てる
            _isScanning = true;
+
+           //スキャンボタンを押したか判定するbool変数をfalseに戻す
+           scanButton_flag = false;
            
-           // Controlを振動させる 
+           /* Controlを振動させる 
            MLInput.Controller targetController = MLInput.GetController(controllerid);
+           targetController.StartFeedbackPatternVibe(MLInput.Controller.FeedbackPatternVibe.ForceDown, MLInput.Controller.FeedbackIntensity.Medium);*/
+       }
 
-           targetController.StartFeedbackPatternVibe(MLInput.Controller.FeedbackPatternVibe.ForceDown, MLInput.Controller.FeedbackIntensity.Medium);
-
+       else if(scanButton_flag && _isScanning)//QRコードのスキャン中に間違えてボタンを押した場合
+       {
+           return;
        }
 #endif
     }
 
-    private void MLInputOnOnTriggerUp(byte controllerid, float triggervalue)
+    /*private void MLInputOnOnTriggerUp(byte controllerid, float triggervalue)
     {
 #if PLATFORM_LUMIN
        // Controlのトリガーが離した状態で且つ、QRコードのスキャンを実施している場合
@@ -73,7 +96,7 @@ public class MLQRCodeSample : MonoBehaviour
            targetController.StartFeedbackPatternVibe(MLInput.Controller.FeedbackPatternVibe.ForceDown, MLInput.Controller.FeedbackIntensity.Medium);
        }
 #endif
-    }
+    }*/
 
     private void OnDestroy()
     {
@@ -84,25 +107,26 @@ public class MLQRCodeSample : MonoBehaviour
     {
 #if PLATFORM_LUMIN
        // XR Managerが動作中かを確認します。1つでも実行されていれば、Magic Leap 1であるとみなし、
-       // ControlのTriggerのイベントハンドラーを登録する。
+       // ControlのTriggerのイベントハンドラーを登録する。←必要ないので削除する
        if (XRGeneralSettings.Instance.Manager.isInitializationComplete)
        {
-           _didInit = true;
-           MLBarcodeScanner.OnMLBarcodeScannerResultsFound += OnMLBarcodeScannerResultsFound;
-           MLInput.OnTriggerDown += MLInputOnOnTriggerDown;
-           MLInput.OnTriggerUp += MLInputOnOnTriggerUp;
+           //_didInit = true;
+           MLBarcodeScanner.OnMLBarcodeScannerResultsFound += OnMLBarcodeScannerResultsFound;//
+           /*MLInput.OnTriggerDown += MLInputOnOnTriggerDown;
+           MLInput.OnTriggerUp += MLInputOnOnTriggerUp;*/
        }
 #endif
     }
 
-    private void OnDisable()
+    private void OnDisable()// 非アクティブの場合はスキャンしたQRコードの情報を消去する
     {
-       if (_didInit)
+        MLBarcodeScanner.OnMLBarcodeScannerResultsFound -= OnMLBarcodeScannerResultsFound;
+       /*if (_didInit)
        {
            MLBarcodeScanner.OnMLBarcodeScannerResultsFound -= OnMLBarcodeScannerResultsFound;
            MLInput.OnTriggerDown -= MLInputOnOnTriggerDown;
            MLInput.OnTriggerUp -= MLInputOnOnTriggerUp;
-       }
+       }*/
     }
 
     #region Magic Leap Barcode Scanner API
@@ -124,9 +148,6 @@ public class MLQRCodeSample : MonoBehaviour
     private void OnMLBarcodeScannerResultsFound(BarcodeData data)
     {
            Debug.Log(data.StringData);
-           
-           //シーンを変える
-           SceneManager.LoadScene(data.StringData);
          
        if (data.Type != MLBarcodeScanner.BarcodeType.None)
        {
@@ -139,7 +160,7 @@ public class MLQRCodeSample : MonoBehaviour
    /// QRコードのPrefabを作成または更新します。
    /// </summary>
    /// <param name="data"></param>
-   private void ExtractBarcodeScannerData(BarcodeData data)
+   private void ExtractBarcodeScannerData(BarcodeData data)// 車種パネルをアクティブにする
     {
        Debug.Log(data.StringData);
        if (qrCodeVisualByBarcodeData.TryGetValue(data.StringData, out MLQRCodeVisual visual))
@@ -148,9 +169,14 @@ public class MLQRCodeSample : MonoBehaviour
        }
        else
        {
-           MLQRCodeVisual qrCode = Instantiate(qrCodeVisualPrefab);
+           /*MLQRCodeVisual qrCode = Instantiate(qrCodeVisualPrefab);
            qrCodeVisualByBarcodeData.Add(data.StringData, qrCode);
-           qrCode.Set(data);
+           qrCode.Set(data);*/
+
+           panelCarSelect.SetActive(true);
+           panelCarSelect_text.text = data.StringData;
+           //panelCarSelect_image.sprite = carImage[];
+
        }
     }
     #endregion
