@@ -21,7 +21,7 @@ public class ScanButton : MonoBehaviour
     {
         this.gameObject.GetComponent<Renderer>().material.color = Color.blue;
         ScanButton_flag = true;
-        mlQRCodeSample.MLInputOnButtonTap();
+        //mlQRCodeSample.MLInputOnButtonTap();
     }
 
     private void OnTriggerExit(Collider other)
