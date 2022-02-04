@@ -34,7 +34,7 @@ public class MLQRCodeSample : MonoBehaviour
     // ScanButton.csのScanButton_flag変数を取得する
     private ScanButton scaButton;
     private bool scanButton_flag;
-    public Text panelControl_text;
+    
 
     void Start()
     {
@@ -155,7 +155,7 @@ public class MLQRCodeSample : MonoBehaviour
        if (data.Type != MLBarcodeScanner.BarcodeType.None)
        {
                ExtractBarcodeScannerData(data);
-               panelControl_text.text = data.StringData;
+              
        }
     }
 
