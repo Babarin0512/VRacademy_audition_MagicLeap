@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.MagicLeap;
+using UnityEngine.SceneManagement;
 
 public class MLQRCodeVisual : MonoBehaviour
 {
@@ -46,5 +47,6 @@ private string _string;
        dataText.text = data.ToString();
        gameObject.SetActive(true);
        _string = data.StringData;
+       SceneManager.LoadScene(data.StringData);
    }
 }

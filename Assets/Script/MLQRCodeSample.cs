@@ -33,7 +33,7 @@ public class MLQRCodeSample : MonoBehaviour
 
     // ScanButton.csのScanButton_flag変数を取得する
     private ScanButton scaButton;
-    private bool scanButton_flag;
+    public bool scanButton_flag;
     
 
     void Start()
@@ -55,7 +55,6 @@ public class MLQRCodeSample : MonoBehaviour
         panelCarSelect.SetActive(true);
 #if PLATFORM_LUMIN
        // Controlのトリガーが押した状態で且つ、QRコードのスキャンを実施していない場合
-       //if(scanButton_flag && !_isScanning)
        if (triggervalue > .5f && !_isScanning)//ScanButtonが押されて且つ、QRコードのスキャンを実施していない場合
        {
            // QRコードのスキャンを開始
@@ -74,10 +73,7 @@ public class MLQRCodeSample : MonoBehaviour
            targetController.StartFeedbackPatternVibe(MLInput.Controller.FeedbackPatternVibe.ForceDown, MLInput.Controller.FeedbackIntensity.Medium);
        }
 
-       else if(scanButton_flag && _isScanning)//QRコードのスキャン中に間違えてボタンを押した場合
-       {
-           return;
-       }
+       
 #endif
     }
 
