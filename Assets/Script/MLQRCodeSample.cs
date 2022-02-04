@@ -177,10 +177,7 @@ public class MLQRCodeSample : MonoBehaviour
            qrCodeVisualByBarcodeData.Add(data.StringData, qrCode);
            qrCode.Set(data);
 
-           panelCarSelect.SetActive(true);
-           panelCarSelect_text.text = data.StringData;
-           //panelCarSelect_image.sprite = carImage[];
-
+           
        }
     }
     #endregion

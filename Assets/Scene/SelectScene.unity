@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QRCodeSize: 0.1
   qrCodeVisualPrefab: {fileID: 5370307254174521412, guid: 233993812c9744f7b93b5a664fb61c3b, type: 3}
+  panelControl_text: {fileID: 1222539794}
 --- !u!4 &40919616
 Transform:
   m_ObjectHideFlags: 0
@@ -487,9 +488,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 633987599}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &411182234
 GameObject:
@@ -641,7 +643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0da8b53beb1594c1da8b4ce38a044b58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distance: 0.4
+  _distance: 0.5
   _heightOffset: 0
   _lateralOffset: 0
   _positionSmoothTime: 1
@@ -655,7 +657,7 @@ MonoBehaviour:
   _useThreshold: 0
   _movementThreshold: {x: 10, y: 5}
   _distanceThreshold: 0.15
-  _useLocalSpace: 0
+  _useLocalSpace: 1
 --- !u!114 &633987596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -732,8 +734,8 @@ RectTransform:
   - {fileID: 727299772}
   - {fileID: 1693231613}
   - {fileID: 1088313683}
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_Father: {fileID: 404162500}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -747,7 +749,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633987594}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 95f996d68ad534bf89fb551ca0395e2b, type: 3}
   m_Name: 
@@ -874,7 +876,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 727299771}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1681}
+  m_LocalPosition: {x: 0, y: 0, z: 301}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1490136025}
@@ -886,7 +888,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -9, y: 150}
+  m_AnchoredPosition: {x: -326, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &727299773
@@ -1229,6 +1231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScanButton_flag: 0
+  dataString: 
 --- !u!1 &1088313682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1905,26 +1908,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1693231612}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0da8b53beb1594c1da8b4ce38a044b58, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f12b885bbdb04467b31105d25dce3bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distance: 0.3
-  _heightOffset: 0
-  _lateralOffset: 0
-  _positionSmoothTime: 1
-  _rotationSmoothTime: 1
-  _lookDirection: 2
-  _placeOnAwake: 1
-  _placeOnUpdate: 1
-  _lockZRotation: 1
-  _lockXRotation: 0
-  _lockToXZPlane: 0
-  _useThreshold: 0
-  _movementThreshold: {x: 10, y: 5}
-  _distanceThreshold: 0.15
-  _useLocalSpace: 0
+  ScanButton_flag: 0
+  dataString: 
 --- !u!114 &1693231615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2613,10 +2603,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 24
+    m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 1
     m_MaxSize: 42
     m_Alignment: 0
     m_AlignByGeometry: 0
