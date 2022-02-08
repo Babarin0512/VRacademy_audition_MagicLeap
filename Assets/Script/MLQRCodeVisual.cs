@@ -44,9 +44,10 @@ private string _string;
 
        transform.position = data.Pose.position;
        transform.rotation = data.Pose.rotation;
-       dataText.text = data.ToString();
+       //dataText.text = data.ToString();
+       dataText.text = data.StringData;
        gameObject.SetActive(true);
-       _string = data.StringData;
+       
        SceneManager.LoadScene(data.StringData);
    }
 }

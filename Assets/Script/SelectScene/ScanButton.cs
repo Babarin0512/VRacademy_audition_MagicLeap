@@ -9,6 +9,7 @@ public class ScanButton : MonoBehaviour
     private MLQRCodeSample mlQRCodeSample;
 
     public string dataString;
+    
 
     void Awake()
     {
@@ -23,7 +24,7 @@ public class ScanButton : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         this.gameObject.GetComponent<Renderer>().material.color = Color.blue;
-        ScanButton_flag = true;
+        ScanButton_flag = false;
 
         //mlQRCodeSample.MLInputOnButtonTap();
     }
@@ -31,7 +32,21 @@ public class ScanButton : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         this.gameObject.GetComponent<Renderer>().material.color = Color.white;
-        SceneManager.LoadScene(dataString);
+        //SceneManager.LoadScene(dataString);
+        ScanButton_flag = true;
+
+        if(ScanButton_flag)
+        {
+            this.gameObject.GetComponent<Renderer>().material.color = Color.red;
+        }
+
+        else 
+        {
+            this.gameObject.GetComponent<Renderer>().material.color = Color.green;
+
+        }
+        
+        
     }
 
     

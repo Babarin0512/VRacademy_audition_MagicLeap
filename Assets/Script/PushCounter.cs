@@ -17,7 +17,14 @@ public class PushCounter : MonoBehaviour
     private Image _panel;
     private GameObject imageObject;//imageをGameObjectとして代入する変数
 
-    private int imageLength;
+    public int imageLength;
+
+    private GameObject followingPage;
+    private GameObject checkMarkOn;
+    private GameObject checkMarkOff;
+    //private bool checkBox;// チェックボックスにチェックが入ってるかどうか判定する
+    private GameObject text_NextTool;
+    private GameObject text_Check;
 
 
     void Awake()
@@ -44,6 +51,16 @@ public class PushCounter : MonoBehaviour
         _mainCamera = GameObject.Find("MainCamera");
         
         imageLength = image.Length - 1;
+
+        // チェックマーク表示切り替えのために取得
+        followingPage = GameObject.Find("FollowingPage");
+        checkMarkOn = GameObject.Find("CheckMark_ON");
+        checkMarkOff = GameObject.Find("CheckMark_OFF");
+        text_Check = GameObject.Find("Text_Check");
+        text_NextTool = GameObject.Find("Text_NextTool");
+ 　　　  //checkBox = false;
+        //checkMarkOn.SetActive(false);
+        //checkMarkOff.SetActive(true);
         
         
         
@@ -53,7 +70,7 @@ public class PushCounter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-         //_text.text = counts.ToString() + "/" + image.Length.ToString() + "ページ";
+         
          _text.text = counts.ToString() + "/" + imageLength.ToString();
          
          
@@ -110,14 +127,5 @@ public class PushCounter : MonoBehaviour
         }
     }
 
-    public void MoveScene()
-    {
-        //SceneManager.LoadScene();
-    }
-
-
-
-    
-
-    
+   
 }

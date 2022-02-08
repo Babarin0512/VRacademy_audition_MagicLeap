@@ -154,6 +154,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   QRCodeSize: 0.1
   qrCodeVisualPrefab: {fileID: 5370307254174521412, guid: 233993812c9744f7b93b5a664fb61c3b, type: 3}
+  flag: 0
 --- !u!4 &40919616
 Transform:
   m_ObjectHideFlags: 0

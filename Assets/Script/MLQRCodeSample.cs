@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using UnityEngine.XR.MagicLeap;
 using UnityEngine.XR.Management;
 using static UnityEngine.XR.MagicLeap.MLBarcodeScanner;
@@ -26,15 +25,7 @@ public class MLQRCodeSample : MonoBehaviour
     // Control入力がサブスクライブされているかどうかを確認するためのフラグ
     private bool _didInit;
 
-    // Panel(CarSelect)に関連するObjectを取得する
-    private GameObject panelCarSelect;
-    private Text panelCarSelect_text;
-    private Image panelCarSelect_image;
-
-    // ScanButton.csのScanButton_flag変数を取得する
-    private ScanButton scaButton;
-    public bool scanButton_flag;
-    
+    public bool flag;
 
     void Start()
     {
@@ -43,45 +34,48 @@ public class MLQRCodeSample : MonoBehaviour
         _barcodeSettings = MLBarcodeScanner.Settings.Create(false, type, QRCodeSize);
         SetSettingsAsync(_barcodeSettings);
 
-        panelCarSelect = GameObject.FindGameObjectWithTag("panel(CarSelect)");
-        panelCarSelect_text = panelCarSelect.transform.GetChild(0).gameObject.GetComponent<Text>();
-        panelCarSelect_image = panelCarSelect.transform.GetChild(1).gameObject.GetComponent<Image>();
-
-        scanButton_flag = GameObject.FindGameObjectWithTag("scanButton").GetComponent<ScanButton>().ScanButton_flag;
+        flag = GameObject.Find("ScanButton").GetComponent<ScanButton>().ScanButton_flag;// ScanButton.csのScanButton_flagを取得する
     }
 
-    private void MLInputOnOnTriggerDown(byte controllerid, float triggervalue)//public void MLInputOnButtonTap()
+    void Update()
     {
-        panelCarSelect.SetActive(true);
+        StartScanQR();
+        StopScanQR();
+    }
+
+    private void StartScanQR()
+    {
+        if(flag)
+        {
+
+
 #if PLATFORM_LUMIN
-       // Controlのトリガーが押した状態で且つ、QRコードのスキャンを実施していない場合
-       if (triggervalue > .5f && !_isScanning)//ScanButtonが押されて且つ、QRコードのスキャンを実施していない場合
+       // QRコードのスキャンを実施していない場合
+       if (!_isScanning)
        {
            // QRコードのスキャンを開始
            StartScanningAsync();
 
            // QRコードのスキャン中を判定するフラグを立てる
            _isScanning = true;
-
-           //スキャンボタンを押したか判定するbool変数をfalseに戻す
-           scanButton_flag = false;
-
            
-           
-           //Controlを振動させる 
-           MLInput.Controller targetController = MLInput.GetController(controllerid);
-           targetController.StartFeedbackPatternVibe(MLInput.Controller.FeedbackPatternVibe.ForceDown, MLInput.Controller.FeedbackIntensity.Medium);
+           // Controlを振動させる 
+           //MLInput.Controller targetController = MLInput.GetController(controllerid);
+
+           //targetController.StartFeedbackPatternVibe(MLInput.Controller.FeedbackPatternVibe.ForceDown, MLInput.Controller.FeedbackIntensity.Medium);
        }
-
-       
 #endif
     }
+    }
 
-    private void MLInputOnOnTriggerUp(byte controllerid, float triggervalue)
+    private void StopScanQR()
     {
+        if(!flag)
+        {
+ 
 #if PLATFORM_LUMIN
        // Controlのトリガーが離した状態で且つ、QRコードのスキャンを実施している場合
-       if (triggervalue < .5f && _isScanning)
+       if (_isScanning)
        {
            // QRコードのスキャンを停止
            StopScanningAsync();
@@ -90,11 +84,12 @@ public class MLQRCodeSample : MonoBehaviour
            _isScanning = false;
 
            // Controlを振動させる 
-           MLInput.Controller targetController = MLInput.GetController(controllerid);
+           //MLInput.Controller targetController = MLInput.GetController(controllerid);
 
-           targetController.StartFeedbackPatternVibe(MLInput.Controller.FeedbackPatternVibe.ForceDown, MLInput.Controller.FeedbackIntensity.Medium);
+           //targetController.StartFeedbackPatternVibe(MLInput.Controller.FeedbackPatternVibe.ForceDown, MLInput.Controller.FeedbackIntensity.Medium);
        }
 #endif
+    }
     }
 
     private void OnDestroy()
@@ -106,25 +101,24 @@ public class MLQRCodeSample : MonoBehaviour
     {
 #if PLATFORM_LUMIN
        // XR Managerが動作中かを確認します。1つでも実行されていれば、Magic Leap 1であるとみなし、
-       // ControlのTriggerのイベントハンドラーを登録する。←必要ないので削除する
+       // ControlのTriggerのイベントハンドラーを登録する。
        if (XRGeneralSettings.Instance.Manager.isInitializationComplete)
        {
            _didInit = true;
-           MLBarcodeScanner.OnMLBarcodeScannerResultsFound += OnMLBarcodeScannerResultsFound;//
-           MLInput.OnTriggerDown += MLInputOnOnTriggerDown;
-           MLInput.OnTriggerUp += MLInputOnOnTriggerUp;
+           MLBarcodeScanner.OnMLBarcodeScannerResultsFound += OnMLBarcodeScannerResultsFound;
+           /*MLInput.OnTriggerDown += MLInputOnOnTriggerDown;
+           MLInput.OnTriggerUp += MLInputOnOnTriggerUp;*/
        }
 #endif
     }
 
-    private void OnDisable()// 非アクティブの場合はスキャンしたQRコードの情報を消去する
+    private void OnDisable()
     {
-        MLBarcodeScanner.OnMLBarcodeScannerResultsFound -= OnMLBarcodeScannerResultsFound;
        if (_didInit)
        {
            MLBarcodeScanner.OnMLBarcodeScannerResultsFound -= OnMLBarcodeScannerResultsFound;
-           MLInput.OnTriggerDown -= MLInputOnOnTriggerDown;
-           MLInput.OnTriggerUp -= MLInputOnOnTriggerUp;
+           /*MLInput.OnTriggerDown -= MLInputOnOnTriggerDown;
+           MLInput.OnTriggerUp -= MLInputOnOnTriggerUp;*/
        }
     }
 
@@ -147,11 +141,10 @@ public class MLQRCodeSample : MonoBehaviour
     private void OnMLBarcodeScannerResultsFound(BarcodeData data)
     {
            Debug.Log(data.StringData);
-         
+
        if (data.Type != MLBarcodeScanner.BarcodeType.None)
        {
                ExtractBarcodeScannerData(data);
-              
        }
     }
 
@@ -160,7 +153,7 @@ public class MLQRCodeSample : MonoBehaviour
    /// QRコードのPrefabを作成または更新します。
    /// </summary>
    /// <param name="data"></param>
-   private void ExtractBarcodeScannerData(BarcodeData data)// 車種パネルをアクティブにする
+   private void ExtractBarcodeScannerData(BarcodeData data)
     {
        Debug.Log(data.StringData);
        if (qrCodeVisualByBarcodeData.TryGetValue(data.StringData, out MLQRCodeVisual visual))
@@ -172,11 +165,7 @@ public class MLQRCodeSample : MonoBehaviour
            MLQRCodeVisual qrCode = Instantiate(qrCodeVisualPrefab);
            qrCodeVisualByBarcodeData.Add(data.StringData, qrCode);
            qrCode.Set(data);
-
-           
        }
     }
     #endregion
-
-   
 }
