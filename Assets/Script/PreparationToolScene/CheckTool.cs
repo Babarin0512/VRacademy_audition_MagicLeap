@@ -7,7 +7,7 @@ public class CheckTool : MonoBehaviour
     private bool nextButton;
     private GameObject followingPage;
 
-    bool checkBox;// チェックマークの切り替え判定
+    public bool checkBox;// チェックマークの切り替え判定
     GameObject checkMarkOff;
     GameObject checkMarkOn;
 

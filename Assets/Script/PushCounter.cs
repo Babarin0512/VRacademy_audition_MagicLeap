@@ -31,7 +31,7 @@ public class PushCounter : MonoBehaviour
     {
         counts = 0;
         _text = GameObject.Find("PushCounter").GetComponent<Text>();
-        _text.text = counts.ToString();
+        //_text.text = counts.ToString();　countsだけをテキスト表示させる意味がないので消す
     }
 
     void Start()
