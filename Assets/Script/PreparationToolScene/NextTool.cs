@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 //次のページに進むオブジェクトにアタッチする
 public class NextTool : MonoBehaviour
 {
-    private PushCounter pushCounter;
+    private ToolCheckCounter toolCheckCounter;
     private CheckTool checkTool;
     private int counts;
     private int imageLength;
@@ -16,91 +16,55 @@ public class NextTool : MonoBehaviour
 
     GameObject checkMark_ON;
     bool checkBox;
+    bool flg;
 
 
 
     private void Awake()
     {
+        toolCheckCounter = this.transform.root.GetComponent<ToolCheckCounter>();// PushCounterスクリプトを取得する
+        checkTool = GameObject.Find("Previous page").GetComponent<CheckTool>();// CheckToolスクリプトを取得する
+    }
+
+    void OnEnable()//ここは実行されている
+    {
+       
+        checkBox = checkTool.checkBox;
+        counts = toolCheckCounter.counts;
+
+        if (imageLength != 0)// シーンが遷移してから最初の処理でimage[]の格納が終わる前の値で実行しないため
+        {
+            if (counts == imageLength)// 工具が全部揃っているのを確認できたらテキストの内容を変える
+            {
+                text_NextTool.text = "整備作業に移る";
+            }
+
+        }
        
     }
 
-    private void OnEnable()//ここは実行されている
-    {
-        pushCounter = this.transform.root.GetComponent<PushCounter>();// PushCounterスクリプトを取得する
-        counts = pushCounter.counts;
-        imageLength = pushCounter.imageLength;
-        text_NextTool = this.transform.Find("Text_NextTool").GetComponent<TextMesh>();
-        text_NextTool.text = "test";
-        checkBox = GameObject.Find("Previous page").GetComponent<CheckTool>().checkBox;
-
-        if (imageLength == 0)
-        {
-            while(imageLength != 0)
-            {
-                imageLength = pushCounter.imageLength;
-
-                if (counts < imageLength)
-                {
-                    text_NextTool.text = counts.ToString() + "/" + imageLength.ToString();//"次に用意する工具を表示します";
-                }
-                else if (counts == imageLength)
-                {
-                    text_NextTool.text = "整備作業に移る";
-                }
-            }
-            
-
-      
-
-        }
-
-        
-
-
-        /*if (counts < imageLength)
-        {
-            text_NextTool.text = counts.ToString() + "/" + imageLength.ToString();//"次に用意する工具を表示します";
-        }
-        else if(counts == imageLength)
-        {
-            text_NextTool.text = "整備作業に移る";
-        }*/
-        
-    }
-
-    private void OnDisable()
-    {
-        text_NextTool = GameObject.Find("Text_NextTool").GetComponent<TextMesh>();
-        text_NextTool.text = null;
-    }
-    // Start is called before the first frame update
+    
     void Start()
     {
-        /*pushCounter = GameObject.Find("PushuCounter").GetComponent<PushCounter>();
-        int imageLength;
-        imageLength = pushCounter.imageLength;
-
-        text_NextTool = GameObject.Find("Text_NextTool").GetComponent<TextMesh>();*/
-        checkMark_ON = GameObject.Find("CheckMark_ON");
+       
+        imageLength = toolCheckCounter.imageLength;
+        text_NextTool = this.transform.Find("Text_NextTool").GetComponent<TextMesh>();
         
-        
-
-
-
+        checkBox = checkTool.checkBox;
+        flg = checkTool.flg;
+   
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        pushCounter = this.transform.root.GetComponent<PushCounter>();// PushCounterスクリプトを取得する
-        counts = pushCounter.counts;
-        imageLength = pushCounter.imageLength;
+  
 
-        text_NextTool.text = counts.ToString() + "/" + imageLength.ToString();// pushCounter.imageLengthを取得できているか確認する
+    private void OnTriggerEnter(Collider other)
+    {
+        checkBox = true;
     }
 
     private void OnTriggerStay(Collider other)
     {
+        
         this.gameObject.GetComponent<Renderer>().material.color = Color.green;
 
     }
@@ -110,26 +74,24 @@ public class NextTool : MonoBehaviour
         // counterを+1にする
         // 自身を非アクティブにする
         // counterの最後の数になら整備シーンに変更する
-        // テキストに整備にはいることを表示する
+       
         
         this.gameObject.GetComponent<Renderer>().material.color = Color.white;
 
         if (counts < imageLength)
         {
-            //text_NextTool.text = null;//"次に用意する工具を表示します";
-            transform.root.gameObject.GetComponent<PushCounter>().FollowingPage();
-            gameObject.SetActive(false);
-            checkMark_ON.SetActive(false);
-            checkBox = false;
+            transform.root.gameObject.GetComponent<ToolCheckCounter>().FollowingPage();
+            checkTool.switchCheck(checkBox);//switchCheck(checkBox)を実行する
         }
 
-       
+
         else if (counts == imageLength)
         {
-            // 読み込んだマニュアル画像の数と最後までcountsが等しい場合、シーンを変更する。
-            //SceneManager.LoadScene("CB400SF00");// 最終的にはQRで読み込んだデータをもとにシーンを変更する
+            // 読み込んだマニュアル画像の数とcountsが等しい場合、シーンを変更する。
+            SceneManager.LoadScene("CB400SF00");// 最終的にはQRで読み込んだデータをもとにシーンを変更する
             return;
         }
+
     }
 
     

@@ -86,9 +86,10 @@ public class PushCounter : MonoBehaviour
              _panel.sprite = image[0];
          }
 
-         float x = quaternion.eulerAngles.x;
+         // look at cameraスクリプトがあるからこの処理は無視する。もしパネルが正面を向かない場合は有効にする
+         /*float x = quaternion.eulerAngles.x;
          float y = quaternion.eulerAngles.y;
-         this.gameObject.transform.rotation = Quaternion.Euler(x, y, 0);
+         this.gameObject.transform.rotation = Quaternion.Euler(x, y, 0);*/
        
   
     }
