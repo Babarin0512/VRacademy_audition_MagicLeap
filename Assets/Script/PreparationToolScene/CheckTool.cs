@@ -11,7 +11,9 @@ public class CheckTool : MonoBehaviour
     public bool flg;
     GameObject checkMarkOff;
     GameObject checkMarkOn;
-    TextMesh text_Check;
+    GameObject text_check;
+    public TextMesh text_Check;
+    
 
     void Awake()
     {
@@ -26,6 +28,7 @@ public class CheckTool : MonoBehaviour
     {
         checkMarkOff = GameObject.Find("CheckMark_OFF");
         checkMarkOn = GameObject.Find("CheckMark_ON");
+        text_check = GameObject.Find("Text_Check");
         followingPage.SetActive(false);
         this.gameObject.GetComponent<Renderer>().material.color = Color.white;
         
@@ -39,7 +42,7 @@ public class CheckTool : MonoBehaviour
     private void Update()
     {
         TextMesh text_Check = GameObject.Find("Text_Check").GetComponent<TextMesh>();
-        text_Check.text = checkBox.ToString();
+        //text_Check.text = checkBox.ToString();
     }
 
 
@@ -82,10 +85,7 @@ public class CheckTool : MonoBehaviour
             checkMarkOff.SetActive(false);
             checkMarkOn.SetActive(true);
             followingPage.SetActive(true);
-            text_Check.text = null;
-            
-            
-            //text_NextTool.text = "次に用意する工具を表示します"; 
+            text_check.SetActive(false);
         }
         else if (checkBox == true)
         {
@@ -93,7 +93,8 @@ public class CheckTool : MonoBehaviour
             checkMarkOff.SetActive(true);
             checkMarkOn.SetActive(false);
             followingPage.SetActive(false);
-            text_Check.text = "用意ができたら押してください";
+            text_check.SetActive(true);
+            //text_Check.text = "用意ができたら押してください";
         }
     }
 

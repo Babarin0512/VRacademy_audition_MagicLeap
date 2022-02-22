@@ -16,7 +16,7 @@ public class HandDemoManager : MonoBehaviour
 
     //手のジェスチャーに応じた
     //認識率
-    private float _keyPoseConfidenceValue = 0.6f;
+    private float _keyPoseConfidenceValue = 0.7f;
 
     private MLResult result;
 
@@ -53,49 +53,34 @@ public class HandDemoManager : MonoBehaviour
         //　任意のポーズのコールバック　右手
         //---------------------------------------------------------------
 
-        //右手のポーズ変化のコールバック　UIを表示
+        //手のポーズ変化のコールバック　
         ｋeyPoseManager.OnKeyPoseBegin += (pose, type) =>
         {
-            if(MLEyes.LeftEye.IsBlinking || MLEyes.RightEye.IsBlinking)
-            {
-                if (type == MLHandTracking.HandType.Left && pose == _activeUIKeyPose)
-                {
-                    _uiObject.SetActive(true);
-                    _uiObject.gameObject.transform.position = MLHandTracking.Left.Index.Tip.Position;
-                }
-            }
-            /*if (type == MLHandTracking.HandType.Left && pose == _activeUIKeyPose)
-            {
-                if(MLEyes.LeftEye.IsBlinking || MLEyes.RightEye.IsBlinking)
-                {
-                    
-                } 
-            }*/
-
-            if(MLEyes.LeftEye.IsBlinking || MLEyes.RightEye.IsBlinking)
-            {
-                if (type == MLHandTracking.HandType.Left && pose == _inactiveUIKeyPose)
-                {
-                    _uiObject.SetActive(false);
-                }
-            }
            
-                
-            /*if (type == MLHandTracking.HandType.Left && pose == _inactiveUIKeyPose)
+
+            // マニュアルを表示する
+            if(type == MLHandTracking.HandType.Left && pose == _activeUIKeyPose && type == MLHandTracking.HandType.Right && pose == _activeUIKeyPose)
             {
-                if(MLEyes.LeftEye.IsBlinking || MLEyes.RightEye.IsBlinking)
-                {
-                    _uiObject.SetActive(false);
-                }
                 
-            }*/
+                    _uiObject.SetActive(true);
+                    _uiObject.gameObject.transform.position = MLHandTracking.Left.Thumb.MCP.Position;
+                          
+            }
+
+            
+
+            // マニュアルを非表示にする。
+            if(type == MLHandTracking.HandType.Left && pose == _inactiveUIKeyPose && type == MLHandTracking.HandType.Right && pose == _inactiveUIKeyPose)
+            {
+               
+                    _uiObject.SetActive(false);
+                
+                               
+            }
         };
     }
 
-    private void FixUpdate()
-    {
-
-    }
+   
 
     private void Update()
     {

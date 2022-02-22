@@ -17,6 +17,7 @@ public class NextTool : MonoBehaviour
     GameObject checkMark_ON;
     bool checkBox;
     bool flg;
+    int ExecutionMethod;
 
 
 
@@ -47,7 +48,7 @@ public class NextTool : MonoBehaviour
     void Start()
     {
        
-        imageLength = toolCheckCounter.imageLength;
+        imageLength = toolCheckCounter.imageLength;//　IListの要素数を取得して変数に格納する
         text_NextTool = this.transform.Find("Text_NextTool").GetComponent<TextMesh>();
         
         checkBox = checkTool.checkBox;
@@ -78,21 +79,47 @@ public class NextTool : MonoBehaviour
         
         this.gameObject.GetComponent<Renderer>().material.color = Color.white;
 
-        if (counts < imageLength)
+        if (counts < imageLength)// imageLengthを変更する
         {
-            transform.root.gameObject.GetComponent<ToolCheckCounter>().FollowingPage();
+            if(ExecutionMethod == 0)
+            {
+                toolCheckCounter.FollowingToolPage();
+            }
+
+            else if(ExecutionMethod == 1)
+            {
+                toolCheckCounter.FollowingManualPage();
+            }
+
             checkTool.switchCheck(checkBox);//switchCheck(checkBox)を実行する
         }
 
 
         else if (counts == imageLength)
         {
-            // 読み込んだマニュアル画像の数とcountsが等しい場合、シーンを変更する。
-            SceneManager.LoadScene("CB400SF00");// 最終的にはQRで読み込んだデータをもとにシーンを変更する
+            ExecutionMethod++;
+            // 読み込んだマニュアル画像の数とcountsが等しい場合、工具集めや。
+
+
+            // 工具のチェックがすべて完了したらimage_Manualの画像をPanelに表示する
+            if(ExecutionMethod == 0)
+            {
+                toolCheckCounter.ChenghImage_Manual();
+            }
+
+            else if(ExecutionMethod == 1)
+            {
+                toolCheckCounter.chenghImage_QR();
+            }
+                
+            text_NextTool.text = "次の整備作業に移ります";
+            checkTool.text_Check.text = "作業が完了したらタッチしてください";
             return;
         }
 
     }
+
+    
 
     
 
