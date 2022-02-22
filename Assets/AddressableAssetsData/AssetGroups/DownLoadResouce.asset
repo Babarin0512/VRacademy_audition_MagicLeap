@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: DownLoadResouce
+  m_EditorClassIdentifier: 
+  m_GroupName: DownLoadResouce
+  m_Data:
+    m_SerializedData: []
+  m_GUID: 33914e5d757a84ed6ba3b7cbcfb84d0e
+  m_SerializeEntries:
+  - m_GUID: 43041c9ffc26c44b28b9cd2df14211f8
+    m_Address: 00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TestCarManual
+  - m_GUID: c4b4e79a5dc2447d0a4d499e32a17180
+    m_Address: 01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TestCarManual
+  - m_GUID: 2b5f89b8178054d5392fdec1c3fc4f10
+    m_Address: 02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TestCarManual
+  - m_GUID: ec11505c0ddcf4d908cd9e89cba924d6
+    m_Address: 03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TestCarManual
+  - m_GUID: 42d58080051bd4b0f918228cdc19931e
+    m_Address: 00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TestCarTool
+  - m_GUID: df2b1426d539642bc9f78405b70a18bd
+    m_Address: 01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TestCarTool
+  - m_GUID: f70381d9aa3dc44668dfc6ca26414c6d
+    m_Address: 02
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TestCarTool
+  - m_GUID: 4cc7db9ce5a1a40c381c8c8906e0b7ec
+    m_Address: 03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - TestCarTool
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: bde4e36483d43474985b9521e6bfa505, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 091f262f7e58b4fb8abcea1dbf52579c, type: 2}
+    - {fileID: 11400000, guid: fae281db0ecb0498cae67f1beae7e6ff, type: 2}
