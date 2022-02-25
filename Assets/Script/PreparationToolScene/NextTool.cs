@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
+
 
 
 //次のページに進むオブジェクトにアタッチする
 public class NextTool : MonoBehaviour
 {
-    private ToolCheckCounter toolCheckCounter;
-    private CheckTool checkTool;
+    //private ToolCheckCounter toolCheckCounter;
+    //private CheckTool checkTool;
+    [SerializeField] CheckTool checkTool;
+    [SerializeField] ToolCheckCounter toolCheckCounter;
+
     private int counts;
     private int imageLength;
 
@@ -17,14 +20,16 @@ public class NextTool : MonoBehaviour
     GameObject checkMark_ON;
     bool checkBox;
     bool flg;
-    int ExecutionMethod;
+    bool flag;
+    int executionMethod;
+
+   int count_tool;
 
 
 
     private void Awake()
     {
-        toolCheckCounter = this.transform.root.GetComponent<ToolCheckCounter>();// PushCounterスクリプトを取得する
-        checkTool = GameObject.Find("Previous page").GetComponent<CheckTool>();// CheckToolスクリプトを取得する
+        count_tool = toolCheckCounter.count_Tool;
     }
 
     void OnEnable()//ここは実行されている
@@ -32,15 +37,34 @@ public class NextTool : MonoBehaviour
        
         checkBox = checkTool.checkBox;
         counts = toolCheckCounter.counts;
+        imageLength = toolCheckCounter.imageLength;
+        executionMethod = toolCheckCounter.ExecutionMethod;
 
         if (imageLength != 0)// シーンが遷移してから最初の処理でimage[]の格納が終わる前の値で実行しないため
         {
-            if (counts == imageLength)// 工具が全部揃っているのを確認できたらテキストの内容を変える
+           
+            if (toolCheckCounter.count_Tutorial == imageLength)// 工具が全部揃っているのを確認できたらテキストの内容を変える*count_Toolなどでじょうけんつける
             {
-                text_NextTool.text = "整備作業に移る";
+                text_NextTool.text = null;
+                
+            }
+
+        
+           
+            else if(toolCheckCounter.count_Tool == imageLength)
+            {
+                text_NextTool.text = "整備作業に移行します";
+                //executionMethod = 1;
+            }
+
+            else if(toolCheckCounter.count_Manual == imageLength)
+            {
+                text_NextTool.text = "整備を終了します";
+                //executionMethod = 2;
             }
 
         }
+
        
     }
 
@@ -78,15 +102,21 @@ public class NextTool : MonoBehaviour
        
         
         this.gameObject.GetComponent<Renderer>().material.color = Color.white;
+        
 
         if (counts < imageLength)// imageLengthを変更する
         {
-            if(ExecutionMethod == 0)
+            if (executionMethod == 0)
+            {
+                toolCheckCounter.FollowingTutorialPage();
+            }
+
+            if (executionMethod == 1)
             {
                 toolCheckCounter.FollowingToolPage();
             }
 
-            else if(ExecutionMethod == 1)
+            else if(executionMethod == 2)
             {
                 toolCheckCounter.FollowingManualPage();
             }
@@ -97,24 +127,31 @@ public class NextTool : MonoBehaviour
 
         else if (counts == imageLength)
         {
-            ExecutionMethod++;
-            // 読み込んだマニュアル画像の数とcountsが等しい場合、工具集めや。
 
+            // 読み込んだマニュアル画像の数とcountsが等しい場合、工具集めや。
+            if (executionMethod == 0)
+            {
+                //toolCheckCounter.FollowingTutorialPage();
+                return;
+                
+
+            }
 
             // 工具のチェックがすべて完了したらimage_Manualの画像をPanelに表示する
-            if(ExecutionMethod == 0)
+            if (executionMethod == 1)
             {
                 toolCheckCounter.ChenghImage_Manual();
+                executionMethod = 2;
+                checkTool.switchCheck(checkBox);
             }
 
-            else if(ExecutionMethod == 1)
+            else if(executionMethod == 2)
             {
                 toolCheckCounter.chenghImage_QR();
+                executionMethod = 0;
+                checkTool.switchCheck(checkBox);
             }
-                
-            text_NextTool.text = "次の整備作業に移ります";
-            checkTool.text_Check.text = "作業が完了したらタッチしてください";
-            return;
+            
         }
 
     }

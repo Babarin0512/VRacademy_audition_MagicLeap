@@ -17,46 +17,36 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: 33914e5d757a84ed6ba3b7cbcfb84d0e
   m_SerializeEntries:
-  - m_GUID: 43041c9ffc26c44b28b9cd2df14211f8
-    m_Address: 00
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - TestCarManual
-  - m_GUID: c4b4e79a5dc2447d0a4d499e32a17180
-    m_Address: 01
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - TestCarManual
-  - m_GUID: 2b5f89b8178054d5392fdec1c3fc4f10
+  - m_GUID: 52608402e85fe470b8b86de346591831
     m_Address: 02
     m_ReadOnly: 0
     m_SerializedLabels:
-    - TestCarManual
-  - m_GUID: ec11505c0ddcf4d908cd9e89cba924d6
-    m_Address: 03
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - TestCarManual
-  - m_GUID: 42d58080051bd4b0f918228cdc19931e
+    - cartool
+  - m_GUID: 5f07fa040bf92419fadb43d14aa3b3dc
     m_Address: 00
     m_ReadOnly: 0
     m_SerializedLabels:
-    - TestCarTool
-  - m_GUID: df2b1426d539642bc9f78405b70a18bd
-    m_Address: 01
-    m_ReadOnly: 0
-    m_SerializedLabels:
-    - TestCarTool
-  - m_GUID: f70381d9aa3dc44668dfc6ca26414c6d
+    - cartool
+  - m_GUID: bbfe70cc1a87443f99ee0e6d14e8ee69
     m_Address: 02
     m_ReadOnly: 0
     m_SerializedLabels:
-    - TestCarTool
-  - m_GUID: 4cc7db9ce5a1a40c381c8c8906e0b7ec
-    m_Address: 03
+    - carmanual
+  - m_GUID: 8c47fc5ca93b243338509398aabb7b13
+    m_Address: 01
     m_ReadOnly: 0
     m_SerializedLabels:
-    - TestCarTool
+    - carmanual
+  - m_GUID: 72d1672a7980543b6a5ec0c888211ea3
+    m_Address: 00
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - carmanual
+  - m_GUID: d98c7adac1ea1475cba708bbc86d7fe1
+    m_Address: 01
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - cartool
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: bde4e36483d43474985b9521e6bfa505, type: 2}
   m_SchemaSet:

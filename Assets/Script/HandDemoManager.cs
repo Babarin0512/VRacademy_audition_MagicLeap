@@ -20,6 +20,8 @@ public class HandDemoManager : MonoBehaviour
 
     private MLResult result;
 
+    bool flg = false;
+
     private void Awake()
     {
          //MainCameraのTransformを取得する
@@ -56,27 +58,38 @@ public class HandDemoManager : MonoBehaviour
         //手のポーズ変化のコールバック　
         ｋeyPoseManager.OnKeyPoseBegin += (pose, type) =>
         {
-           
+            
 
-            // マニュアルを表示する
-            if(type == MLHandTracking.HandType.Left && pose == _activeUIKeyPose && type == MLHandTracking.HandType.Right && pose == _activeUIKeyPose)
+            if(flg)
+            {
+                // マニュアルを表示する
+            if(type == MLHandTracking.HandType.Left && pose == _activeUIKeyPose)
             {
                 
                     _uiObject.SetActive(true);
                     _uiObject.gameObject.transform.position = MLHandTracking.Left.Thumb.MCP.Position;
+                    flg = false;
                           
+            }
+
             }
 
             
 
-            // マニュアルを非表示にする。
-            if(type == MLHandTracking.HandType.Left && pose == _inactiveUIKeyPose && type == MLHandTracking.HandType.Right && pose == _inactiveUIKeyPose)
+            
+            if(!flg)
             {
-               
+                // マニュアルを非表示にする。
+                if (type == MLHandTracking.HandType.Left && pose == _inactiveUIKeyPose)
+                {
+
                     _uiObject.SetActive(false);
-                
-                               
+                    flg = true;
+
+
+                }
             }
+            
         };
     }
 

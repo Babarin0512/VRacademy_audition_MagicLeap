@@ -14,9 +14,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scene/SelectScene.unity
     guid: f29b8dc65ec8640958f29a154700efa8
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scene/PreparationTool 1.unity
     guid: 9f81150830c59457e98261db2a4c1823
+  - enabled: 0
+    path: Assets/Scene/CB400SF00 1.unity
+    guid: 67495ef721f1442718a7b90aca010243
+  - enabled: 0
+    path: Assets/Scene/Debug.unity
+    guid: fa52144970dc4444d8054da5ae53047f
   m_configObjects:
     UnityEditor.XR.ARKit.ARKitSettings: {fileID: 11400000, guid: 7d97c42d804174425ba25380a86c6847, type: 2}
     com.unity.addressableassets: {fileID: 11400000, guid: 8a731694be39b482790d5d96e9d804cf, type: 2}

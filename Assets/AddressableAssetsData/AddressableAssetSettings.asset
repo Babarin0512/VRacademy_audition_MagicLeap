@@ -60,6 +60,20 @@ MonoBehaviour:
         m_Value: ServerData/[BuildTarget]
       - m_Id: 589ba0e78fd2140a394e48adf23f091d
         m_Value: https://testassetacaunt.blob.core.windows.net/test/[BuildTarget]
+    - m_InheritedParent: 
+      m_Id: 181f1f61cbed24e9bb109970fac5473e
+      m_ProfileName: New Profile
+      m_Values:
+      - m_Id: 4ef0f008df9524742954882282db1fff
+        m_Value: '[UnityEditor.EditorUserBuildSettings.activeBuildTarget]'
+      - m_Id: b9bfa67d4aca544b6b81f72bd9e97d80
+        m_Value: '[UnityEngine.AddressableAssets.Addressables.BuildPath]/[BuildTarget]'
+      - m_Id: 6d27843521dd949928172ec345386ee5
+        m_Value: '{UnityEngine.AddressableAssets.Addressables.RuntimePath}/[BuildTarget]'
+      - m_Id: 401aff98a67ec47d588f117be9ceef3b
+        m_Value: ServerData/[BuildTarget]
+      - m_Id: 589ba0e78fd2140a394e48adf23f091d
+        m_Value: https://testassetacaunt.blob.core.windows.net/test/[BuildTarget]
     m_ProfileEntryNames:
     - m_Id: 4ef0f008df9524742954882282db1fff
       m_Name: BuildTarget
@@ -82,8 +96,10 @@ MonoBehaviour:
     - default
     - Tool
     - Manual
-    - TestCarManual
-    - TestCarTool
+    - carmanual
+    - cartool
+    - Cartool
+    - Carmanual
   m_SchemaTemplates: []
   m_GroupTemplateObjects:
   - {fileID: 11400000, guid: 0cbb43967496f4b339c00aeb7e030abc, type: 2}
@@ -97,7 +113,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1cc25e9ac513b40119fc129ddbf2f4d9, type: 2}
   - {fileID: 11400000, guid: 7b8e0b14acd1541b0a410a94f986047d, type: 2}
   - {fileID: 11400000, guid: 7378c8a1470e148b69441c114c984307, type: 2}
-  m_ActiveProfileId: d1b30809c7e3f4918bc331c8e1f07e39
+  m_ActiveProfileId: 181f1f61cbed24e9bb109970fac5473e
   m_HostingServicesManager:
     m_HostingServiceInfos: []
     m_Settings: {fileID: 11400000}

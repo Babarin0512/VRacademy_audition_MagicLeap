@@ -7,6 +7,9 @@ TagManager:
   - mlQRCodeSample
   - panel(CarSelect)
   - scanButton
+  - text_NextTool
+  - text_Check
+  - pushCounter
   layers:
   - Default
   - TransparentFX

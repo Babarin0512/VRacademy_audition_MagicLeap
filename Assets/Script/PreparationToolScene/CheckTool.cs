@@ -18,34 +18,29 @@ public class CheckTool : MonoBehaviour
     void Awake()
     {
         followingPage = GameObject.Find("FollowingPage");
-        
+        text_Check = GameObject.Find("Text_Check").GetComponent<TextMesh>();
+        checkMarkOff = GameObject.Find("CheckMark_OFF");
+        checkMarkOn = GameObject.Find("CheckMark_ON");
+        text_check = GameObject.Find("Text_Check");
 
         checkBox = false;
     }
 
-    // Start is called before the first frame update
+  
     void Start()
     {
-        checkMarkOff = GameObject.Find("CheckMark_OFF");
-        checkMarkOn = GameObject.Find("CheckMark_ON");
-        text_check = GameObject.Find("Text_Check");
-        followingPage.SetActive(false);
+             
         this.gameObject.GetComponent<Renderer>().material.color = Color.white;
-        
+
+        followingPage.SetActive(false);
         checkMarkOff.SetActive(true);
         checkMarkOn.SetActive(false);
-
-        text_Check = GameObject.Find("Text_Check").GetComponent<TextMesh>();
-
     }
 
     private void Update()
     {
         TextMesh text_Check = GameObject.Find("Text_Check").GetComponent<TextMesh>();
-        //text_Check.text = checkBox.ToString();
     }
-
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -94,7 +89,7 @@ public class CheckTool : MonoBehaviour
             checkMarkOn.SetActive(false);
             followingPage.SetActive(false);
             text_check.SetActive(true);
-            //text_Check.text = "用意ができたら押してください";
+           
         }
     }
 
